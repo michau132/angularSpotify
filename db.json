@@ -2,7 +2,7 @@
   "playlists": [
     {
       "id":1,
-      "name":"Angular Greatasdadest Hits!",
+      "name":"Angular Greatest Hits!",
       "tracks":2,
       "color":"#FF0000",
       "favourite":true
