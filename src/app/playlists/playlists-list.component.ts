@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { PlaylistsService, Playlist } from './playlists.service';
 
 @Component({
   selector: 'playlists-list',
@@ -16,7 +17,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
         <tr *ngFor="let playlist of playlists; let i = index" class="playlist-row" 
           [ngClass]="{'table-active': selected == playlist}"
           [ngStyle]="{ borderBottomColor:playlist.color }" 
-          (click)="select(playlist)">
+          [routerLink]="playlist.id">
           <td> {{ i + 1 }}. </td>
           <td> {{ playlist.name }} </td>
           <td> {{ playlist.tracks }} </td>
@@ -36,22 +37,21 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PlaylistsListComponent implements OnInit {
 
-  @Output('selected')
-  onSelected = new EventEmitter()
 
-  @Input()
-  playlists;
+  playlists = [];
 
   @Input()
   selected;
 
-  select(playlist){
-    this.onSelected.emit(playlist);
+  select(playlist) {
+
   }
 
-  constructor() { }
+  constructor(private playlistsService: PlaylistsService) { }
 
   ngOnInit() {
+    this.playlistsService.getPlaylistStream().subscribe((playlists: Playlist[]) => this.playlists = playlists)
+
   }
 
 }

@@ -8,7 +8,6 @@ import { PlaylistsListComponent } from './playlists-list.component';
 import { PlaylistDetailComponent } from './playlist-detail.component';
 import { PlaylistsService } from './playlists.service'
 
-import playlistsData from './playlists.data'
 import { routerModule } from './playlists.routing';
 
 @NgModule({
@@ -30,7 +29,6 @@ import { routerModule } from './playlists.routing';
   providers:[
     //{provide: PlaylistsService, useClass: ExtendedPlaylistsService }
     PlaylistsService,
-    { provide: 'PlaylistsData', useValue: playlistsData },
     // { provide: 'PlaylistsData', useFactory: (data)=>{
     //    data.push({id: 123, name:"Test", color:'red', favourite:false, tracks:2})
     //    return data;

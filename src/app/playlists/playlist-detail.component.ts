@@ -1,30 +1,39 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
+import {ActivatedRoute, Router} from '@angular/router'
+import { PlaylistsService } from './playlists.service';
 @Component({
   selector: 'playlist-detail',
   template: `
-    <p class="card-text">Wybrana Playlista</p>
-    <div class="form-group">
-      <button class="btn btn-success float-xs-right" (click)="edit(playlist)">Edytuj</button>
+    <div *ngIf="!playlist">
+      <p>Wbierz playliste!</p>
+    </div>
+    <div *ngIf="!!playlist">
+      <p class="card-text">{{playlist.name}}</p>
+      <div class="form-group">
+        <button class="btn btn-success float-xs-right" (click)="edit(playlist)">Edytuj</button>
+      </div>
     </div>
   `,
   styles: []
 })
 export class PlaylistDetailComponent implements OnInit {
 
-  @Input()
   playlist;
 
-  @Output('editplaylist')
-  emitter = new EventEmitter(); 
-
   edit(playlist){
-    this.emitter.emit(playlist)
+    this.router.navigate(['playlists', playlist.id, 'edit'])
   }
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, 
+              private playListService: PlaylistsService,
+              private router: Router   
+    ) { }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      const {id} = params;
+      this.playlist = this.playListService.getSinglePlaylist(id)
+    })
   }
 
 }

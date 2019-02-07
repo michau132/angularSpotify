@@ -5,7 +5,7 @@ import {MusicSearchService} from './music-search.service'
   selector: 'album-list',
   template: `
     <div class="row justify-content-between">
-     <album-card [album]="album" class="col mt-4" *ngFor="let album of albums"></album-card>
+     <album-card [routerLink]="['albums', album.id]" [album]="album" class="col mt-4" *ngFor="let album of albums"></album-card>
     </div>
   `,
   styles: []
