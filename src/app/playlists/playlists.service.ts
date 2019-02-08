@@ -3,46 +3,38 @@ import { HttpClient } from '@angular/common/http'
 import { Subject } from 'rxjs';
 
 export interface Playlist {
-  id: number;
   name: string;
-  tracks: number;
+  tracks: any[];
   color: string;
-  favourite: string;
+  favourite: boolean;
 }
 
 @Injectable()
 export class PlaylistsService {
 
   constructor(private http: HttpClient) {
-    this.http.get('http://localhost:3000/playlists').subscribe((playlist: Playlist[]) => {
-      this.playlists = playlist;
-      this.playlistsStream.next(playlist)
-    })
+   
   }
-
+  serverUrl = 'http://localhost:3000/playlists/';
   playlists = [];
   playlistsStream = new Subject();
 
   savePlaylist(playlist: Playlist) {
-    if (playlist.id) {
-      let index = this.playlists.findIndex((old_playlist) => (
-        old_playlist.id === playlist.id
-      ))
-      this.playlists.splice(index, 1, playlist)
+    if (playlist['id']) {
+      this.http.put(this.serverUrl + playlist['id'], playlist).subscribe(() => this.getPlaylists())
     } else {
-      playlist.id = Date.now()
+      playlist['id'] = Date.now();
       this.playlists.push(playlist);
     }
   }
 
-  createPlaylist() {
-    var newPlaylist = {
+  createPlaylist():Playlist {
+    return {
       name: '',
-      tracks: 0,
+      tracks: [],
       color: '#FF0000',
       favourite: false
-    };
-    return Object.assign({}, newPlaylist);
+    }
   }
 
   getPlaylistStream() {
@@ -50,10 +42,13 @@ export class PlaylistsService {
   }
 
   getPlaylists() {
-    return this.playlists;
+    return this.http.get(this.serverUrl).subscribe((playlist: Playlist[]) => {
+      this.playlists = playlist;
+      this.playlistsStream.next(playlist)
+    })
   }
 
   getSinglePlaylist(id) {
-    return this.playlists.find(playlist => playlist.id === parseInt(id))
+    return this.http.get(this.serverUrl + id)
   }
 }
