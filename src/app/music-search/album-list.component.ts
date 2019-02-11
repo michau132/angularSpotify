@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MusicSearchService} from './music-search.service'
+import {MusicSearchService} from './music-search.service';
 
 @Component({
   selector: 'album-list',
@@ -18,8 +18,8 @@ export class AlbumListComponent implements OnInit {
 
   ngOnInit() {
     this.musicService.getAlbumsStream().subscribe((data: any) => {
-      this.albums = data
-    })
+      this.albums = data;
+    });
   }
 
 }

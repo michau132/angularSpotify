@@ -6,7 +6,8 @@ import { ContentCardComponent } from './content-card.component';
 import { PlaylistFormComponent } from './playlist-form.component';
 import { PlaylistsListComponent } from './playlists-list.component';
 import { PlaylistDetailComponent } from './playlist-detail.component';
-import { PlaylistsService } from './playlists.service'
+
+import { MusicSharedModule } from '../music-shared/music-shared.module';
 
 import { routerModule } from './playlists.routing';
 
@@ -14,6 +15,7 @@ import { routerModule } from './playlists.routing';
   imports: [
     CommonModule,
     FormsModule,
+    MusicSharedModule,
     routerModule
   ],
   declarations: [
@@ -23,12 +25,12 @@ import { routerModule } from './playlists.routing';
     PlaylistsListComponent,
     PlaylistDetailComponent
   ],
-  exports:[
+  exports: [
     PlaylistsComponent
   ],
-  providers:[
-    //{provide: PlaylistsService, useClass: ExtendedPlaylistsService }
-    PlaylistsService,
+  providers: [
+    // {provide: PlaylistsService, useClass: ExtendedPlaylistsService }
+    // PlaylistsService,
     // { provide: 'PlaylistsData', useFactory: (data)=>{
     //    data.push({id: 123, name:"Test", color:'red', favourite:false, tracks:2})
     //    return data;

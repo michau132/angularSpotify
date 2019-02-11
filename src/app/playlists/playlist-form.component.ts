@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PlaylistsService, Playlist} from './playlists.service';
-import {ActivatedRoute, Router} from '@angular/router'
+import {ActivatedRoute, Router} from '@angular/router';
 @Component({
   selector: 'playlist-form',
   template: `
@@ -10,7 +10,12 @@ import {ActivatedRoute, Router} from '@angular/router'
             <input type="text" #nameRef="ngModel" name="name" required minlength="3" [(ngModel)]="playlist.name" class="form-control">
             <div *ngIf="nameRef.touched || nameRef.dirty || formRef.submitted">
               <div class="invalid-feedback d-block" *ngIf="nameRef.errors?.required">To pole jest wymagane</div>
-              <div class="invalid-feedback d-block" *ngIf="nameRef.errors?.minlength">To pole musi miec przynajmniej {{nameRef.errors.minlength.requiredLength}} znaki</div>
+              <div
+                class="invalid-feedback d-block"
+                *ngIf="nameRef.errors?.minlength"
+              >
+                To pole musi miec przynajmniej {{nameRef.errors.minlength.requiredLength}} znaki
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -23,7 +28,7 @@ import {ActivatedRoute, Router} from '@angular/router'
           </div>
           <div class="form-group">
             <label>
-              <input type="checkbox" name="favourite" [(ngModel)]="playlist.favourite"> 
+              <input type="checkbox" name="favourite" [(ngModel)]="playlist.favourite">
               Ulubiona
             </label>
           </div>
@@ -36,36 +41,33 @@ import {ActivatedRoute, Router} from '@angular/router'
 })
 export class PlaylistFormComponent implements OnInit {
 
-  playlist: Playlist;
+  playlist: Playlist = {} as Playlist;
 
-  save(valid, playlist: Playlist){
-    if(valid) {
+  save(valid, playlist: Playlist) {
+    if (valid) {
       this.playListService.savePlaylist(playlist)
-      this.router.navigate(['playlists', playlist['id']])
+        .subscribe(() => this.router.navigate(['playlists', playlist['id']]));
     }
-    
   }
 
-  constructor(private route: ActivatedRoute, 
+  constructor(
+    private route: ActivatedRoute,
     private playListService: PlaylistsService,
-              private router: Router 
-    ) { }
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       const {id} = params;
-      if(id) {
-        this.route.params.subscribe(params => {
-          const { id } = params;
-          this.playListService.getSinglePlaylist(id).subscribe((playlist: Playlist) => {
-            this.playlist = playlist;
-          })
-        })
+      if (id) {
+        this.playListService.getSinglePlaylist(id).subscribe((playlist: Playlist) => {
+          this.playlist = playlist;
+        });
       } else {
         this.playlist = this.playListService.createPlaylist();
       }
-      
-    })
+
+    });
   }
 
 }

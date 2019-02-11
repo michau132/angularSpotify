@@ -3,7 +3,7 @@ import { PlaylistsService } from './playlists.service';
 
 
 @Component({
-  selector: 'playlists',
+  selector: 'app-playlists',
   templateUrl: './playlists.component.html',
   styleUrls: ['./playlists.component.css'],
   providers: [
@@ -13,10 +13,9 @@ import { PlaylistsService } from './playlists.service';
 })
 export class PlaylistsComponent implements OnInit {
 
-  constructor(private playlists:PlaylistsService) {
+  constructor(private playlists: PlaylistsService) {
 
   }
   ngOnInit() {
-    this.playlists.getPlaylists();
   }
 }

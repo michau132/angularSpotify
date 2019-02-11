@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { from, Subject, } from 'rxjs';
 
-const clientId = '28841880d6b04d9f9d1edda3cb2b436f'
-const clientSecret = '660ef8bc764246ff9128ad8e00b08088'
+const clientId = '28841880d6b04d9f9d1edda3cb2b436f';
+const clientSecret = '660ef8bc764246ff9128ad8e00b08088';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MusicSearchService {
   constructor(private http: HttpClient) {
-    this.getToken()
+    this.getToken();
   }
 
   albumsStream = new Subject();
-  token = ''
+  token = '';
 
   getAlbumsStream() {
-    return from(this.albumsStream)
+    return from(this.albumsStream);
   }
 
   getAlbum(id) {
@@ -28,14 +28,14 @@ export class MusicSearchService {
       })
     };
 
-    const url = `https://api.spotify.com/v1/albums/${id}`
-    return this.http.get(url, httpOptions)
+    const url = `https://api.spotify.com/v1/albums/${id}`;
+    return this.http.get(url, httpOptions);
   }
 
   getToken(expired?: boolean) {
-    const token = JSON.parse(localStorage.getItem('token'))
+    const token = JSON.parse(localStorage.getItem('token'));
     if (token && !expired) {
-      this.token = token
+      this.token = token;
       return;
     }
 
@@ -50,7 +50,7 @@ export class MusicSearchService {
     const myAuthHeaders = {
       Accept: 'application/json',
       Authorization: `Basic ${auth}`,
-      "Content-Type": "application/x-www-form-urlencoded"
+      'Content-Type': 'application/x-www-form-urlencoded'
     };
 
     const myAuthInit = {
@@ -67,8 +67,8 @@ export class MusicSearchService {
         throw new Error('Network response was not ok.');
       })
       .then(data => {
-        this.token = `${data.token_type} ${data.access_token}`
-        localStorage.setItem('token', JSON.stringify(`${data.token_type} ${data.access_token}`))
+        this.token = `${data.token_type} ${data.access_token}`;
+        localStorage.setItem('token', JSON.stringify(`${data.token_type} ${data.access_token}`));
       })
       .catch(err => console.log(`Fetch problem: ${err}`));
   }
@@ -85,7 +85,7 @@ export class MusicSearchService {
       .subscribe(
         (response: any) => this.albumsStream.next(response.albums.items),
         () => this.getToken(true).then(() => this.search(query)),
-      )
+      );
 
   }
 }

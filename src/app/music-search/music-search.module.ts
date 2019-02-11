@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { routerModule } from './music-search.routing';
@@ -10,7 +10,8 @@ import { AlbumCardComponent } from './album-card.component';
 import { MusicSearchService } from './music-search.service';
 import { AlbumSearchComponent } from './album-search.component';
 import { AlbumDetailsComponent } from './album-details.component';
-import { TrackListComponent } from './track-list.component';
+import { MusicSharedModule } from '../music-shared/music-shared.module';
+
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { TrackListComponent } from './track-list.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MusicSharedModule,
     routerModule
   ],
   declarations: [
@@ -25,10 +27,9 @@ import { TrackListComponent } from './track-list.component';
     AlbumListComponent,
     AlbumCardComponent,
     AlbumSearchComponent,
-    AlbumDetailsComponent,
-    TrackListComponent
+    AlbumDetailsComponent
   ],
-  exports:[
+  exports: [
     MusicSearchComponent
   ],
   providers: [MusicSearchService]
