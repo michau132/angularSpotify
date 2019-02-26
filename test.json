@@ -1,0 +1,84 @@
+{
+  "posts": [
+    [
+      {
+        "userId": 1,
+        "emailLogin": "t1.email@be-tse.com",
+        "firstName": "Name_1",
+        "lastName": "Lastname_1",
+        "department": "BANKING",
+        "roles": [
+          "CONSULTANT"
+        ],
+        "active": false
+      },
+      {
+        "userId": 2,
+        "emailLogin": "t2.email@be-tse.com",
+        "firstName": "Name_2",
+        "lastName": "Lastname_2",
+        "department": "DIGITAL",
+        "roles": [
+          "CONSULTANT",
+          "ADMINISTRATION",
+          "MANAGER"
+        ],
+        "active": true
+      },
+      {
+        "userId": 3,
+        "emailLogin": "t3.email@be-tse.com",
+        "firstName": "Name_3",
+        "lastName": "Lastname_3",
+        "department": "SALESFORCE",
+        "roles": [
+          "CONSULTANT"
+        ],
+        "active": false
+      },
+      {
+        "userId": 4,
+        "emailLogin": "t4.email@be-tse.com",
+        "firstName": "Name_4",
+        "lastName": "Lastname_4",
+        "department": "DIGITAL",
+        "roles": [
+          "CONSULTANT",
+          "ADMINISTRATION",
+          "MANAGER"
+        ],
+        "active": false
+      },
+      {
+        "userId": 5,
+        "emailLogin": "t5.email@be-tse.com",
+        "firstName": "Name_5",
+        "lastName": "Lastname_5",
+        "department": "SALESFORCE",
+        "roles": [],
+        "active": false
+      },
+      {
+        "userId": 6,
+        "emailLogin": "lexie@mail.ru",
+        "firstName": "Lexie",
+        "lastName": "rew",
+        "department": "SALESFORCE",
+        "roles": [
+          "ADMINISTRATION"
+        ],
+        "active": true
+      }
+    ]
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
